@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+unless $LOAD_PATH.include?(File.dirname(__FILE__) + '/../lib')
+  $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
+end
+
+if ARGV.empty?
+  puts "Usage: jkcli command options"
+end
+
+require 'jkcli/jenkins/jenkins_client'
+client = Jkcli::Jenkins::JenkinsClient.new("http://thom.aperigeek.com:8080/")
+
+case ARGV[0]
+  when 'jobs'
+    client.jobs.each do |job|
+      puts job["name"]
+    end
+  else
+    puts "Unknown command: #{ARGV[0]}"
+end
