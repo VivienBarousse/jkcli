@@ -17,6 +17,10 @@ case ARGV[0]
     client.jobs.each do |job|
       puts "#{job["name"]}: #{job["color"]}"
     end
+  when 'views'
+    client.views.each do |view|
+      puts view["name"]
+    end
   else
     puts "Unknown command: #{ARGV[0]}"
 end
