@@ -9,17 +9,17 @@ module Jkcli
       end
 
       def jobs
-        jobs = get '/api/json'
-        jobs["jobs"] || []
+        res = get '/api/json'
+        res.json["jobs"] || []
       end
 
       def views
-        jobs = get '/api/json'
-        jobs["views"] || []
+        res = get '/api/json'
+        res.json["views"] || []
       end
 
-      def build(job, opts={})
-        puts "Launching job " + job
+      def build(job_name)
+        get "/job/#{job_name}/build"
       end
 
     end

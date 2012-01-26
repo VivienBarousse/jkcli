@@ -21,6 +21,8 @@ case ARGV[0]
     client.views.each do |view|
       puts view["name"]
     end
+  when 'build'
+    client.build(ARGV[1])
   else
     puts "Unknown command: #{ARGV[0]}"
 end
