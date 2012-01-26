@@ -22,7 +22,20 @@ case ARGV[0]
       puts view["name"]
     end
   when 'build'
-    client.build(ARGV[1])
+    params = {}
+    job = client.job(ARGV[1])
+    job["actions"].each do |action|
+      if action["parameterDefinitions"]
+        action["parameterDefinitions"].each do |param|
+          name = param["name"]
+          default = param["defaultParameterValue"][name]
+          print "#{name} [#{default}]: "
+          value = STDIN.gets
+          params[name] = value
+        end
+      end
+    end
+    client.build(ARGV[1], :parameters => params)
   else
     puts "Unknown command: #{ARGV[0]}"
 end
