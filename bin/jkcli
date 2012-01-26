@@ -6,6 +6,7 @@ end
 
 if ARGV.empty?
   puts "Usage: jkcli command options"
+  exit
 end
 
 require 'jkcli/jenkins/jenkins_client'
@@ -14,7 +15,7 @@ client = Jkcli::Jenkins::JenkinsClient.new("http://thom.aperigeek.com:8080/")
 case ARGV[0]
   when 'jobs'
     client.jobs.each do |job|
-      puts job["name"]
+      puts "#{job["name"]}: #{job["color"]}"
     end
   else
     puts "Unknown command: #{ARGV[0]}"
