@@ -20,8 +20,7 @@ end
 
 unless config["host"]
   print "Host: "
-  config["host"] = STDIN.gets
-  config["host"].strip!
+  config["host"] = STDIN.gets.strip!
 end
 
 require 'jkcli/jenkins/jenkins_client'
@@ -45,7 +44,7 @@ case ARGV[0]
           name = param["name"]
           default = param["defaultParameterValue"][name]
           print "#{name} [#{default}]: "
-          value = STDIN.gets
+          value = STDIN.gets.strip!
           params[name] = value
         end
       end

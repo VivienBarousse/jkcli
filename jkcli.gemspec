@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
     Command line interface for Jenkins
   EOF
 
+  spec.executables << 'jkcli'
+
   spec.add_dependency("rest-client")
   spec.add_dependency("json")
   spec.add_development_dependency("rspec")
