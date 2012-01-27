@@ -9,8 +9,23 @@ if ARGV.empty?
   exit
 end
 
+config = {}
+config_file = ENV["HOME"] + "/.jkclirc"
+if File.exist?(config_file)
+  require 'json'
+  file = File.open(config_file)
+  content = file.read
+  config = JSON.parse(content)
+end
+
+unless config["host"]
+  print "Host: "
+  config["host"] = STDIN.gets
+  config["host"].strip!
+end
+
 require 'jkcli/jenkins/jenkins_client'
-client = Jkcli::Jenkins::JenkinsClient.new("http://thom.aperigeek.com:8080/")
+client = Jkcli::Jenkins::JenkinsClient.new(config["host"])
 
 case ARGV[0]
   when 'jobs'
