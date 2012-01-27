@@ -42,9 +42,10 @@ case ARGV[0]
       if action["parameterDefinitions"]
         action["parameterDefinitions"].each do |param|
           name = param["name"]
-          default = param["defaultParameterValue"][name]
+          default = param["defaultParameterValue"]["value"]
           print "#{name} [#{default}]: "
           value = STDIN.gets.strip!
+          value = default if value.empty?
           params[name] = value
         end
       end
