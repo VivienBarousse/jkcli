@@ -1,0 +1,4 @@
+Jenkins command line interface
+
+This is a command line interface to Jenkins, so you can launch your builds
+from your shell and never leave your terminal!
