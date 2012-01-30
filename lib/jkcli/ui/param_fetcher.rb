@@ -11,6 +11,8 @@ module Jkcli
               StringParamFetcher.new(param_def)
             when "ChoiceParameterDefinition"
               ChoiceParamFetcher.new(param_def)
+            when "PasswordParameterDefinition"
+              PasswordParamFetcher.new(param_def)
           else
             raise "Unknown parameter type"
           end
@@ -52,6 +54,18 @@ module Jkcli
 
       def choices
         @def["choices"]
+      end
+
+    end
+
+    class PasswordParamFetcher < ParamFetcher
+
+      def initialize(param_def)
+        @def = param_def
+      end
+
+      def fetch
+        InputReader.read_password(name, default_value)
       end
 
     end

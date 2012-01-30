@@ -28,6 +28,14 @@ module Jkcli
           choices[choice - 1]
         end
 
+        def read_password(prompt, default)
+          system "stty -echo"
+          password = read_string(prompt, default)
+          puts
+          system "stty echo"
+          password
+        end
+
       end
 
     end
