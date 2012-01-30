@@ -24,6 +24,8 @@ unless config["host"]
 end
 
 require 'jkcli/jenkins/jenkins_client'
+require 'jkcli/ui/param_fetcher'
+
 client = Jkcli::Jenkins::JenkinsClient.new(config["host"])
 
 case ARGV[0]
@@ -41,12 +43,8 @@ case ARGV[0]
     job["actions"].each do |action|
       if action["parameterDefinitions"]
         action["parameterDefinitions"].each do |param|
-          name = param["name"]
-          default = param["defaultParameterValue"]["value"]
-          print "#{name} [#{default}]: "
-          value = STDIN.gets.strip!
-          value = default if value.empty?
-          params[name] = value
+          fetcher = Jkcli::Ui::ParamFetcher.fetcher(param)
+          params[param["name"]] = fetcher.fetch
         end
       end
     end
