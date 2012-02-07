@@ -13,6 +13,8 @@ module Jkcli
               ChoiceParamFetcher.new(param_def)
             when "PasswordParameterDefinition"
               PasswordParamFetcher.new(param_def)
+            when "BooleanParameterDefinition"
+              BooleanParamFetcher.new(param_def)
           else
             raise "Unknown parameter type"
           end
@@ -66,6 +68,18 @@ module Jkcli
 
       def fetch
         InputReader.read_password(name, default_value)
+      end
+
+    end
+
+    class BooleanParamFetcher < ParamFetcher
+      
+      def initialize(param_def)
+        @def = param_def
+      end
+
+      def fetch
+        InputReader.read_boolean(name, default_value)
       end
 
     end

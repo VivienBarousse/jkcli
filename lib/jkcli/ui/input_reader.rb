@@ -36,6 +36,17 @@ module Jkcli
           password
         end
 
+        def read_boolean(prompt, default)
+          str = read_string(prompt, default.to_s)
+          if str == "true"
+            true
+          elsif str == "false"
+            false
+          else
+            read_boolean(prompt, default)
+          end
+        end
+
       end
 
     end
