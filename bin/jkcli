@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+begin
+
 unless $LOAD_PATH.include?(File.dirname(__FILE__) + '/../lib')
   $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 end
@@ -51,4 +53,10 @@ case ARGV[0]
     client.build(ARGV[1], :parameters => params)
   else
     puts "Unknown command: #{ARGV[0]}"
+end
+
+rescue Interrupt
+  puts ""
+  puts "Bye"
+
 end
