@@ -40,17 +40,21 @@ case ARGV[0]
       puts view["name"]
     end
   when 'build'
-    params = {}
-    job = client.job(ARGV[1])
-    job["actions"].each do |action|
-      if action["parameterDefinitions"]
-        action["parameterDefinitions"].each do |param|
-          fetcher = Jkcli::Ui::ParamFetcher.fetcher(param)
-          params[param["name"]] = fetcher.fetch
+    begin
+      params = {}
+      job = client.job(ARGV[1])
+      job["actions"].each do |action|
+        if action["parameterDefinitions"]
+          action["parameterDefinitions"].each do |param|
+            fetcher = Jkcli::Ui::ParamFetcher.fetcher(param)
+            params[param["name"]] = fetcher.fetch
+          end
         end
       end
+      client.build(ARGV[1], :parameters => params)
+    rescue RestClient::ResourceNotFound
+      puts "Job #{ARGV[1]} does not exist."
     end
-    client.build(ARGV[1], :parameters => params)
   else
     puts "Unknown command: #{ARGV[0]}"
 end
