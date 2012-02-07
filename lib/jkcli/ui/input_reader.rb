@@ -29,10 +29,13 @@ module Jkcli
         end
 
         def read_password(prompt, default)
-          system "stty -echo"
-          password = read_string(prompt, default)
-          puts
-          system "stty echo"
+          begin
+            system "stty -echo"
+            password = read_string(prompt, default)
+            puts
+          ensure
+            system "stty echo"
+          end
           password
         end
 
