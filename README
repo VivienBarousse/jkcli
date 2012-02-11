@@ -2,3 +2,28 @@ Jenkins command line interface
 
 This is a command line interface to Jenkins, so you can launch your builds
 from your shell and never leave your terminal!
+
+The following commands are available:
+
+ - `jobs`: List all available jobsm with their last build status
+ - `views`: List all the views defined on the Jenkins instance
+ - `build [jobname]`: Schedule a build for the job `jobname`
+
+The command line tool will prompt you for the Jenkins instance you want to
+connect to. You can configure the Jenkins endpoint permanently by editing
+the jkcli configuration file. Place a JSON file at ~/.jkcli.rc with the 
+following content:
+
+    {
+      "host": "http://www.example.com/"
+    }
+
+This way, jkcli will never prompt you for the Jenkins host again and will use
+this value by default.
+
+You can contribute by submitting code and issues on the Github project at
+<https://github.com/VivienBarousse/jkcli>.
+
+This project is written by Vivien Barousse <barousse.vivien@gmail.com> and is
+available under the terms of the GPLv3 license. For more information, consult
+the LICENSE file.
